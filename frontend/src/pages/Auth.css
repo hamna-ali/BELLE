@@ -1,0 +1,123 @@
+/* Full screen background */
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../assets/images/img_1.jpg') no-repeat center center;
+  filter: brightness(1.2); /* increase brightness */
+  background-size: cover; /* full screen */
+  padding: 20px;
+}
+
+/* Glass effect container */
+.auth-container {
+  background-color: rgba(0, 0, 0, 0.65); /* transparent black */
+  border-radius: 15px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  -webkit-backdrop-filter: blur(5px); /* glass effect for Safari */
+  backdrop-filter: blur(5px); /* glass effect */
+  box-sizing: border-box; /* ensure padding included in width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Headings */
+.auth-container h2 {
+  color: #FFFFFF;
+  margin-bottom: 25px;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Input fields */
+.auth-container input {
+  width: 100%; /* fit container width */
+  max-width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  background-color: rgba(255,255,255,0.1);
+  color: #FFFFFF;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box; /* include padding in width */
+  text-align: left;
+}
+
+.auth-container input::placeholder {
+  color: #E0E0E0;
+}
+
+.auth-container input:focus {
+  border-color: #6B0010;
+  box-shadow: 0 0 8px #B76E79;
+}
+
+/* Buttons */
+.auth-container button {
+  width: 100%;
+  max-width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  background-color: #6B0010;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.auth-container button:hover {
+  background-color: #B76E79;
+  color: #000;
+  box-shadow: 0 0 12px #B76E79;
+}
+
+/* Messages */
+.auth-container p {
+  color: #FFFFFF;
+  margin-top: 12px;
+}
+
+/* Links */
+.auth-container a {
+  display: block;
+  margin-top: 10px;
+  color: #B76E79;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.auth-container a:hover {
+  color: #6B0010;
+  text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 30px 20px;
+    border-radius: 12px;
+  }
+
+  .auth-container input,
+  .auth-container button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .auth-container h2 {
+    font-size: 24px;
+  }
+}

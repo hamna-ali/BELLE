@@ -1,0 +1,148 @@
+/* src/components/CommentItem.css */
+.cmt-item {
+  margin-top: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cmt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cmt-author-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cmt-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.cmt-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.cmt-author-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.cmt-author-name {
+  color: #111;
+}
+
+.cmt-dot {
+  color: #999;
+}
+
+.cmt-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmt-icon-btn {
+  border: none;
+  background: transparent;
+  color: #555;
+  padding: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cmt-icon-btn:hover {
+  background: #f3f3f3;
+  color: #111;
+}
+
+.cmt-icon-btn.cmt-danger {
+  color: #cc2a2a;
+}
+
+.cmt-icon-btn.cmt-danger:hover {
+  background: #fdeaea;
+  color: #a51616;
+}
+
+.cmt-text {
+  margin-top: 6px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.cmt-edit-area {
+  margin-top: 8px;
+}
+
+.cmt-textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  resize: vertical;
+  font: inherit;
+}
+
+.cmt-edit-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+}
+
+.cmt-btn {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cmt-btn:hover {
+  background: #f7f7f7;
+}
+
+.cmt-btn.cmt-primary {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.cmt-btn.cmt-primary:hover {
+  background: #1e51c6;
+}
+
+.cmt-footer {
+  margin-top: 6px;
+}
+
+.cmt-link {
+  border: none;
+  background: none;
+  color: #2563eb;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cmt-replies {
+  margin-top: 8px;
+  padding-left: 12px;
+  border-left: 2px solid #f1f1f1;
+}
+
+.cmt-reply-form {
+  margin-top: 8px;
+}

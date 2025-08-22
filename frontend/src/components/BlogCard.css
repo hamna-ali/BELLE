@@ -1,0 +1,285 @@
+:root {
+  --wine: #6B0010;
+  --wine-600: #8a1025;
+  --ink: #0d0d0d;
+  --black: #000;
+  --white: #fff;
+  --muted: #bdbdbd;
+
+  --card-bg: #0b0b0b;
+  --card-border: rgba(255,255,255,0.06);
+  --card-border-hover: rgba(107,0,16,0.45);
+  --text-subtle: #e8e8e8;
+  --badge-bg: rgba(107,0,16,0.9);
+  --badge-border: rgba(255,255,255,0.08);
+  --cta-shadow: rgba(107,0,16,.45);
+}
+
+
+/* Grid wrapper (3-column like screenshot) */
+.ui-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+@media (max-width: 1024px) {
+  .ui-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .ui-grid { grid-template-columns: 1fr; gap: 18px; }
+}
+
+
+/* Blog Card */
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  color: var(--white);
+  border-radius: 0px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  height: 100%; /* stretch to equal height in grid */
+}
+
+.ui-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  border-color: var(--card-border-hover);
+}
+
+
+/* Media (thumbnail) */
+.ui-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9; /* widescreen like screenshot */
+  background: #121212;
+}
+.ui-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .45s ease;
+}
+.ui-card:hover .ui-card__img {
+  transform: scale(1.03);
+}
+
+
+/* Category badge */
+.ui-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--badge-bg);
+  color: var(--white);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-transform: uppercase;
+  border: 1px solid var(--badge-border);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+
+/* Body */
+.ui-card__body {
+  padding: 14px 16px 16px;
+  flex: 1; /* equal height cards */
+  display: flex;
+  flex-direction: column;
+}
+.ui-card__title {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+.ui-card__title a {
+  color: var(--white);
+  text-decoration: none;
+}
+.ui-card__title a:hover {
+  color: #ffe6ea;
+}
+.ui-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+.ui-card__author {
+  color: #ffd2da;
+  font-weight: 600;
+}
+.ui-card__excerpt {
+  color: var(--text-subtle);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  flex-grow: 1; /* push footer down */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* Footer */
+.ui-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ui-card__cta {
+  background: var(--wine);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.ui-card__cta:hover {
+  background: var(--wine-600);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px var(--cta-shadow);
+}
+.ui-card__likes {
+  color: #ffb3c0;
+  font-weight: 700;
+  font-size: 12px;
+}
+/* Inline author actions (icons next to Read button) */
+.ui-card__actions-inline {
+  display: flex;
+  gap: 8px;
+  margin-left: 10px; /* space from "Read" button */
+}
+
+.ui-icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-icon-btn:hover {
+  color: var(--wine-600);
+  transform: translateY(-1px);
+}
+
+
+/* Author-only actions */
+.ui-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ui-card__btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ui-card__btn.edit {
+  background: #2563eb; /* blue */
+  color: #fff;
+}
+.ui-card__btn.edit:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+.ui-card__btn.delete {
+  background: #dc2626; /* red */
+  color: #fff;
+}
+.ui-card__btn.delete:hover {
+  background: #991b1b;
+  transform: translateY(-1px);
+}
+
+/* ===== Added: Minimal themed confirm modal for deletion ===== */
+
+.ui-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ui-modal {
+  background: var(--card-bg);
+  color: var(--white);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 18px;
+  width: min(420px, 92vw);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+}
+
+.ui-modal__title {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.ui-modal__text {
+  margin: 0 0 16px;
+  color: var(--text-subtle);
+  font-size: 0.95rem;
+}
+
+.ui-modal__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.ui-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ui-btn--ghost {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--card-border);
+}
+
+.ui-btn--danger {
+  background: var(--wine);
+  color: var(--white);
+}
+
+.ui-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,140 @@
+.blog-form-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0b0b0b;
+  padding: 2rem;
+}
+
+.blog-form-container {
+  background: rgba(50, 50, 50, 0.242); /* greyish transparent */
+  border: 1px solid white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 100%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Upload Box */
+.file-upload-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  border: 2px dotted white;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  height: 120px;
+  text-align: center;
+  transition: 0.3s;
+}
+.file-upload-box:hover {
+  color: #b11226; /* wine red */
+}
+
+/* Fields */
+.blog-input,
+.blog-select {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 8px;
+  box-sizing: border-box;  /* ensures padding + border don’t increase total width */
+  appearance: none;        /* removes native select arrow styling */
+}
+
+.blog-select {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 8px;
+  box-sizing: border-box;
+  appearance: none;          /* removes default arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.blog-select:focus {
+  border-color: #b11226;
+  outline: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23b11226' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+}
+
+
+.blog-input:focus {
+  outline: none;
+  border-color: #b11226;
+}
+
+/* Dropdown Hover */
+.blog-input option {
+  background: #111;
+  color: white;
+}
+.blog-input option:hover,
+.blog-input option:focus {
+  background: #b11226 ;
+  color: white;
+}
+
+/* Quill */
+.editor-container {
+  border: 1px solid white;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+}
+.ql-toolbar {
+  border: none !important;
+  background: #111;
+  color: white;
+  border-bottom: 1px solid white !important;
+}
+.ql-toolbar button svg {
+  color: white !important;      /* default icon color */
+}
+
+.ql-toolbar button:hover svg,
+.ql-toolbar button:focus svg {
+  color: #b11226 !important;    /* wine red on hover/focus */
+}
+.ql-container {
+  border: none !important;
+  color: white;
+  background: transparent;
+  min-height: 200px;
+  padding: 10px;
+}
+
+/* Button */
+.blog-btn {
+  background: #b11226;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.blog-btn:hover {
+  background: white;
+  color: #b11226;
+}

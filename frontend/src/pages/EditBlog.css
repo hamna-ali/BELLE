@@ -1,0 +1,142 @@
+/* === BASE PAGE === */
+.edit-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #0b0b0b 40%, #1a1a1a 100%);
+  padding: 2rem;
+  margin-top: 80px; /* ensures no overlap with navbar */
+}
+
+/* === CARD === */
+.edit-card {
+  background: rgba(25, 25, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  padding: 2.5rem;
+  max-width: 680px;
+  width: 100%;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === HEADER === */
+.edit-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.edit-header h1 {
+  font-size: 1.9rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.back-btn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 1.4rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.back-btn:hover {
+  background: #6B0010;
+  border-color: #6B0010;
+}
+
+/* === IMAGE BLOCK === */
+.image-block {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  margin-bottom: 2rem;
+}
+.preview-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+.image-edit-btn {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: #6B0010;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.image-edit-btn:hover {
+  background: #fff;
+  color: #6B0010;
+}
+
+/* === FORM === */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.form-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+.form-input:focus {
+  border-color: #6B0010;
+  outline: none;
+  box-shadow: 0 0 6px #6B0010;
+}
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+textarea.form-input {
+  resize: vertical;
+  min-height: 160px;
+}
+
+/* === SUBMIT BUTTON === */
+.submit-btn {
+  background: #6B0010;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.3s;
+}
+.submit-btn:hover {
+  background: #fff;
+  color: #6B0010;
+}

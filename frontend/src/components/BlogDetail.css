@@ -1,0 +1,224 @@
+/* Theme tokens: keep default wine + black */
+:root{
+--wine:#6B0010;
+--wine-600:#8a1025;
+--black:#000;
+--ink:#0d0d0d;
+--soft:#121212;
+--white:#fff;
+--muted:#bdbdbd;
+}
+
+
+.blog-detail-container{
+max-width: 980px; 
+margin: 0 auto;
+padding: 32px 20px 64px;
+color: var(--white);
+background: var(--black);
+font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.bd-header {
+  text-align: center; /* centers all children horizontally */
+  margin-bottom: 24px; /* space below title before image */
+}
+
+.blog-title {
+  margin: 0 0 8px;
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  color: white; /* or #ffffff */
+}
+
+.blog-meta {
+  font-size: 16px;
+  color: #cccccc; /* optional, lighter text */
+}
+
+.author{
+color: #ffd2da;
+font-weight: 600;
+}
+
+/* 2) IMAGE CONTAINER (carousel-ready, box-shaped) */
+.bd-media{
+  width: 100%;
+margin: 16px 0 18px;
+}
+
+
+.bd-media-box{
+background: var(--soft);
+border: 1px solid rgba(255,255,255,0.06);
+overflow: hidden; 
+box-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+
+.bd-img{
+width: 100%;
+height: auto;
+display: block;
+aspect-ratio: 16 / 9; /* cinematic, like Untitled UI examples */
+object-fit: cover;
+transition: transform .45s ease;
+}
+.bd-media-box:hover .bd-img{ transform: scale(1.01); }
+
+/* Under-image bar: category on left, like on right (separate from image box) */
+.bd-underbar{
+margin-top: 10px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+}
+
+/* Category chip (pill) */
+.bd-chip{
+display: inline-block;
+background: rgba(107,0,16,0.92);
+color: var(--white);
+padding: 6px 10px;
+font-size: 12px;
+letter-spacing: .35px;
+text-transform: uppercase;
+border: 1px solid rgba(255,255,255,0.08);
+}
+
+.bd-right{
+display: inline-flex;
+align-items: center;
+gap: 10px;
+background: var(--ink);
+border: 1px solid rgba(255,255,255,0.06);
+padding: 6px 10px;
+}
+.bd-like-btn{
+appearance: none;
+background: transparent;
+border: 0;
+cursor: pointer;
+font-size: 22px; 
+line-height: 1;
+color: var(--white);
+transition: transform .2s ease, color .2s ease;
+}
+.bd-like-btn:hover{ transform: scale(1.06); }
+.bd-like-btn.is-liked{ color: #ff4d6d; }
+.bd-like-count{
+color: #ffd2da;
+font-weight: 700;
+font-size: 13px;
+}
+
+/* 3) DETAIL CONTAINER (separate box from image) */
+.bd-content-box{
+margin-top: 14px;
+background: var(--ink);
+border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Your existing content class kept for compatibility */
+.blog-content{
+padding: 18px 20px;
+color: #f1f1f1;
+font-size: 1.06rem;
+line-height: 1.8;
+}
+.blog-content p{ margin: 0 0 1rem; }
+.blog-content a{ color: #ffd2da; text-decoration: underline; }
+
+/* 4) COMMENTS CONTAINER (separate section) */
+.bd-comments-box{
+margin-top: 26px;
+background: transparent;
+}
+
+.comments-section{
+padding-top: 18px;
+border-top: 1px solid rgba(255,255,255,0.08);
+}
+.comments-section h2{
+margin: 0 0 12px;
+font-size: 18px;
+font-weight: 800;
+letter-spacing: .2px;
+}
+.no-comments{
+font-size: 14px;
+color: var(--muted);
+}
+
+/* Comment item: square, minimal */
+.comment{
+background: var(--ink);
+border: 1px solid rgba(255,255,255,0.06);
+border-left: 4px solid var(--wine);
+padding: 10px 12px;
+margin-bottom: 10px;
+}
+.comment-author{
+font-weight: 700;
+color: #ffd2da;
+font-size: 14px;
+}
+.comment-text{
+margin-top: 4px;
+color: #e7e7e7;
+font-size: .98rem;
+line-height: 1.55;
+}
+
+/* Add Comment form */
+.comment-form{
+display: flex;
+gap: 8px;
+margin-top: 12px;
+}
+.comment-input{
+flex: 1;
+padding: 10px 12px;
+background: #151515;
+color: var(--white);
+border: 1px solid rgba(255,255,255,0.08);
+outline: none;
+transition: border-color .2s ease, box-shadow .2s ease;
+}
+.comment-input::placeholder{ color: #9b9b9b; }
+.comment-input:focus{
+border-color: rgba(107,0,16,.7);
+box-shadow: 0 0 0 3px rgba(107,0,16,.25);
+}
+.comment-submit{
+background: var(--wine);
+color: var(--white);
+font-weight: 800;
+padding: 10px 16px;
+border: 1px solid rgba(255,255,255,0.08);
+cursor: pointer;
+transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.comment-submit:hover{
+background: var(--wine-600);
+transform: translateY(-1px);
+box-shadow: 0 6px 14px rgba(107,0,16,.45);
+}
+
+/* Loading */
+.loading-text{
+color: #aaa;
+text-align: center;
+margin-top: 3rem;
+font-size: 1.2rem;
+}
+
+
+@media (max-width:640px){
+.blog-detail-container{ padding: 24px 14px 48px; }
+.blog-title{ font-size: 28px; }
+.bd-img{ aspect-ratio: 16 / 10; } 
+.blog-content{ font-size: 1rem; }
+}

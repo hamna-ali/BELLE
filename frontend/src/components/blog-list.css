@@ -1,0 +1,106 @@
+/* blog-list.css - page shell + pagination + theme bindings */
+
+:root{
+  --bg: #000000;
+  --bg-deep: #0A0A0A;
+  --primary: #6B0010;     /* Deep Wine Red */
+  --accent: #B76E79;      /* Rose Gold */
+  --card: #F5F5F5;        /* Pearl White (cards already themed in BlogCard.css) */
+  --text: White;        /* body on dark */
+  --white: #FFFFFF;
+}
+
+/* Page container */
+.page-wrap{
+  min-height: 100dvh;
+  background: linear-gradient(180deg, var(--bg), var(--bg-deep));
+  color: var(--text);
+  padding: 28px 20px 40px;
+}
+
+/* Header */
+.page-header{
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 6px;
+}
+.page-title{
+  font-weight: 900;
+  font-size: clamp(28px, 2.4vw, 36px);
+  color: var(--white);
+  letter-spacing: .3px;
+  margin: 0;
+}
+.page-title .title-accent{
+  color: var(--accent);
+  font-weight: 900;
+}
+.page-sub{
+  margin: 6px 0 0;
+  color: #cfcfcf;
+}
+
+/* Grid container (ui-grid columns come from BlogCard.css) */
+.bloglist-grid{
+  max-width: 1200px;
+  margin: 10px auto 0;
+  padding: 0 6px;
+}
+
+/* Empty state */
+.empty-text, .error-text{
+  color: var(--accent);
+  text-align: center;
+  padding: 24px 0;
+  font-weight: 700;
+}
+
+/* Pagination */
+.pager{
+  max-width: 1200px;
+  margin: 26px auto 0;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pager-btn{
+  min-width: 44px;
+  height: 44px;
+  padding: 0 16px;
+  background: #000;
+  color: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--primary);
+  font-weight: 800;
+  letter-spacing: .2px;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .18s ease;
+}
+.pager-btn:hover:not(.disabled){
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(183,110,121,.35);
+}
+.pager-btn:active:not(.disabled){
+  transform: translateY(1px);
+}
+.pager-btn.disabled{
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.pager-info{
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Optional: dark scrollbar polish */
+@supports (scrollbar-color: auto){
+  :root{
+    scrollbar-color: var(--primary) #111;
+    scrollbar-width: thin;
+  }
+}

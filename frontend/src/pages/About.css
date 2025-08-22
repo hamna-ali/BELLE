@@ -1,0 +1,322 @@
+/* Scope all styles to About page */
+.au-page {
+  --bg: #0d0d0f;
+  --panel: #151519;
+  --wine: #6B0010;
+  --wine-hover: #962146;
+  --text: #ffffff;
+  --muted: white;
+  --border: #2a2a31;
+  --focus: #c63b5a;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --fs-base: 16px;
+  --fs-sm: 16px;
+  --fs-h1: 44px;
+  --fs-h2: 28px;
+  --fs-h3: 20px;
+  --fs-h4: 16px;
+
+  /* match your fixed navbar height so content clears it */
+  --navbar-h: 70px;
+
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Generic containers */
+.au-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Hero */
+.au-hero {
+  position: relative;
+  height: 56vh;
+  min-height: 420px;
+  margin-top: var(--navbar-h); /* avoid overlap with fixed navbar */
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.au-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: saturate(1.05) contrast(1) brightness(1);
+  transform: scale(1.02);
+}
+
+.au-hero-overlay {
+  background: linear-gradient(
+      180deg,
+      rgba(13, 13, 15, 0.15) 0%,   /* was 0.35 */
+      rgba(13, 13, 15, 0.35) 55%,  /* was 0.6 */
+      rgba(13, 13, 15, 0.65) 100%  /* was 0.9 */
+    ),
+    radial-gradient(60% 60% at 50% 60%, rgba(123, 30, 58, 0.18) 0%, rgba(123, 30, 58, 0) 80%);
+}
+
+.au-hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.au-title {
+  font-size: var(--fs-h1);
+  line-height: 1.05;
+  letter-spacing: 0.3px;
+  margin: 0;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+}
+.au-subtitle {
+  margin: 10px 0 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* Intro */
+.au-intro {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.au-intro-col {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.au-intro-card {
+  background: linear-gradient(180deg, rgba(123,30,58,0.12), rgba(123,30,58,0.06));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.au-stat {
+  background: #0f0f13;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.au-stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+}
+.au-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Headings & text */
+.au-h2 {
+  font-size: var(--fs-h2);
+  margin: 0 0 12px;
+}
+.au-h3 {
+  font-size: var(--fs-h3);
+  margin: 0 0 6px;
+}
+.au-h4 {
+  font-size: var(--fs-h4);
+  margin: 0 0 6px;
+}
+
+.au-body {
+  color: #e8e8ea;
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  margin: 0 0 10px;
+}
+.au-body-sm {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* Timeline */
+.au-timeline {
+  padding: 10px 0 34px;
+}
+.au-timeline-list {
+  position: relative;
+  border-left: 2px solid var(--border);
+  margin-left: 12px;
+  padding-left: 18px;
+  display: grid;
+  gap: 16px;
+}
+.au-time-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  position: relative;
+}
+.au-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--wine);
+  border: 2px solid #000;
+  position: absolute;
+  left: -24px;
+  top: 18px;
+  box-shadow: 0 0 0 4px rgba(123,30,58,0.25);
+}
+
+/* Values */
+.au-values {
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgba(123,30,58,0.12) 0%, rgba(123,30,58,0) 60%),
+    #0d0d0f;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 12px 0 28px;
+}
+.au-values-inner {
+  padding: 36px 0;
+}
+.au-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.au-value {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+.au-kicker {
+  display: inline-block;
+  color: #fff;
+  background: rgba(123,30,58,0.18);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+/* Team */
+.au-team {
+  padding: 6px 0 36px;
+}
+.au-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.au-team-card {
+  display: flex;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  align-items: center;
+}
+.au-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background:
+    linear-gradient(180deg, rgba(123,30,58,0.22), rgba(123,30,58,0.06)),
+    #0f0f13;
+  border: 2px solid var(--wine);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+}
+.au-team-meta {
+  min-width: 0;
+}
+
+/* CTA */
+.au-cta {
+  border-top: 1px solid var(--border);
+  background: #0f0f13;
+}
+.au-cta-inner {
+  padding: 28px 0 44px;
+  text-align: center;
+}
+.au-cta-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.au-input {
+  background: #0b0b10;
+  color: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  min-width: 260px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.au-input:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(198,59,90,0.2);
+}
+
+.au-btn {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background .15s, opacity .15s;
+}
+.au-btn-wine { background: var(--wine); }
+.au-btn-wine:hover { background: var(--wine-hover); }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .au-intro { grid-template-columns: 1fr; }
+  .au-intro-card { grid-template-columns: 1fr 1fr 1fr; }
+  .au-values-grid { grid-template-columns: 1fr 1fr; }
+  .au-team-grid { grid-template-columns: 1fr 1fr; }
+  .au-title { font-size: 38px; }
+}
+@media (max-width: 640px) {
+  .au-hero { height: 46vh; min-height: 360px; }
+  .au-intro-card { grid-template-columns: 1fr; }
+  .au-values-grid { grid-template-columns: 1fr; }
+  .au-team-grid { grid-template-columns: 1fr; }
+  .au-title { font-size: 32px; }
+}

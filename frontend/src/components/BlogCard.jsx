@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { deletePost } from "../api/blog";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import fallbackImg from "../assets/images/fallback.png";
 import "./BlogCard.css";
 
-const BlogCard = ({ post = {}, currentUser, onDelete }) => {
+const BlogCard = ({ post = {}, currentUser, onDelete, showActions = false }) => {
   const navigate = useNavigate();
-  const postId = post.id ?? post.pk ?? null;        // keep pk-based delete
+  const postId = post.id ?? post.pk ?? null;
   const to = postId ? `/blogs/${postId}` : "#";
 
   const [showConfirm, setShowConfirm] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+  const [deleting] = useState(false);
 
   const title = post.title || "Untitled Post";
   const authorName =
@@ -34,20 +33,10 @@ const BlogCard = ({ post = {}, currentUser, onDelete }) => {
     (post.author?.id === currentUser.id ||
       post.author?.username === currentUser.username);
 
-  const handleDelete = async () => {
-    if (!postId) return;
-    try {
-      setDeleting(true);
-      await deletePost(postId);          // pk-based API call
-      setDeleting(false);
-      setShowConfirm(false);
-      if (onDelete) onDelete(postId);    // parent should remove by id
-    } catch (err) {
-      console.error("Error deleting post", err);
-      setDeleting(false);
-      // Optionally: show a themed toast/snackbar instead of alert
-    }
-  };
+const handleDelete = () => {
+  if (onDelete) onDelete(postId);
+  setShowConfirm(false);
+};
 
   return (
     <article className="ui-card">
@@ -94,7 +83,8 @@ const BlogCard = ({ post = {}, currentUser, onDelete }) => {
             <span className="ui-card__likes">♥ {post.likes_count}</span>
           )}
 
-          {isAuthor && (
+          {/* 🔹 only show edit/delete if explicitly allowed */}
+          {showActions && isAuthor && (
             <div className="ui-card__actions-inline">
               <button
                 className="ui-icon-btn"

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Loader from "./Loader";
 import { createComment } from "../api/blog";
 
-const CommentForm = ({ postId, parentId = null, onSuccess }) => {
+const CommentForm = ({ postId, parentId = null, onSuccess, onCancel }) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,28 +14,47 @@ const CommentForm = ({ postId, parentId = null, onSuccess }) => {
     try {
       const payload = { post: postId, text };
       if (parentId) payload.parent = parentId;
+
       const created = await createComment(payload);
+
       setText("");
       onSuccess?.(created);
+      onCancel?.(); // ✅ auto close after success
     } catch (err) {
       console.error("Error creating comment:", err);
-      alert(err?.response?.data ? JSON.stringify(err.response.data) : "Failed to create comment");
+      alert(
+        err?.response?.data
+          ? JSON.stringify(err.response.data)
+          : "Failed to create comment"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
+    <form onSubmit={handleSubmit} className="comment-form">
+      <input
+        type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={parentId ? "Write a reply..." : "Write a comment..."}
-        rows={3}
+        className="comment-textarea"
       />
-      <button type="submit" disabled={loading}>
-        {loading ? <Loader /> : parentId ? "Reply" : "Comment"}
-      </button>
+      <div className="comment-actions">
+        <button type="submit" disabled={loading} className="comment-btn">
+          {loading ? <Loader /> : parentId ? "Post" : "Comment"}
+        </button>
+        {onCancel && (
+          <button
+            type="button"
+            className="comment-btn cancel"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </form>
   );
 };

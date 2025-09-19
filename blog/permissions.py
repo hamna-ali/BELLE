@@ -7,15 +7,6 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         return getattr(obj, "author_id", None) == request.user.id
 
-# class IsCommentOwnerOrPostOwner(BasePermission):
-#     """
-#     - Comment author can edit/delete their own comment
-#     - Post author can delete any comment on their post (for moderation)
-#     """
-#     def has_object_permission(self, request, view, obj):
-#         if request.method in SAFE_METHODS:
-#             return True
-#         return obj.author_id == request.user.id or obj.post.author_id == request.user.id
 
 class IsCommentOwnerOrPostOwner(BasePermission):
     """

@@ -1,71 +1,75 @@
 // src/components/CommentList.jsx
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getComments } from "../api/blog";
 import CommentItem from "./CommentItem";
 import CommentForm from "./CommentForm";
-import Loader from "./Loader";
 
-const CommentList = ({ postId }) => {
+const CommentList = ({ postId, currentUser }) => {
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const load = async () => {
-    setLoading(true);
+  const fetchComments = async () => {
     try {
       const data = await getComments(postId);
-      // If you use DRF pagination, data may be { results, count, ... }
-      setComments(Array.isArray(data) ? data : data.results || []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
+      setComments(data);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      setComments([]);
     }
   };
 
   useEffect(() => {
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchComments();
   }, [postId]);
 
-  const handleTopLevelCreated = () => {
-    load(); // simplest correct refresh
+  const handleNewComment = (newComment) => {
+    setComments((prev) => [...prev, newComment]);
   };
 
-  const handleUpdated = (updated) => {
-    const replace = (nodes) =>
-      nodes.map((n) =>
-        n.id === updated.id
-          ? { ...n, ...updated }
-          : { ...n, replies: n.replies ? replace(n.replies) : [] }
+  const handleReplyAdded = (reply, parentId) => {
+    const updateTree = (list) =>
+      list.map((c) =>
+        c.id === parentId
+          ? { ...c, replies: [...(c.replies || []), reply] }
+          : { ...c, replies: updateTree(c.replies || []) }
       );
-    setComments((prev) => replace(prev));
+    setComments(updateTree);
   };
 
-  const handleDeleted = (id) => {
-    const remove = (nodes) =>
-      nodes
-        .filter((n) => n.id !== id)
-        .map((n) => ({ ...n, replies: n.replies ? remove(n.replies) : [] }));
-    setComments((prev) => remove(prev));
+  const handleUpdated = (updatedComment) => {
+    const updateTree = (list) =>
+      list.map((c) =>
+        c.id === updatedComment.id
+          ? { ...c, text: updatedComment.text }
+          : { ...c, replies: updateTree(c.replies || []) }
+      );
+    setComments(updateTree);
   };
 
-  if (loading) return <Loader />;
+  const handleDeleted = (deletedId) => {
+    const updateTree = (list) =>
+      list
+        .filter((c) => c.id !== deletedId)
+        .map((c) => ({ ...c, replies: updateTree(c.replies || []) }));
+    setComments(updateTree);
+  };
 
   return (
     <div>
-      <CommentForm postId={postId} onSuccess={handleTopLevelCreated} />
-      {comments.length > 0 ? (
-        comments.map((comment) => (
-          <CommentItem
-            key={comment.id}
-            comment={comment}
-            onReplyAdded={handleTopLevelCreated}
-            onUpdated={handleUpdated}
-            onDeleted={handleDeleted}
-          />
-        ))
-      ) : (
-        <p>No comments yet.</p>
+      {/* Show comments */}
+      {comments.map((comment) => (
+        <CommentItem
+          key={comment.id}
+          comment={comment}
+          postId={postId}
+          onReplyAdded={handleReplyAdded}
+          onUpdated={handleUpdated}
+          onDeleted={handleDeleted}
+        />
+      ))}
+
+      {/* One global comment form at the bottom */}
+      {currentUser && (
+        <CommentForm postId={postId} onSuccess={handleNewComment} />
       )}
     </div>
   );

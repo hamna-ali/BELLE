@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 User = get_user_model()
 
 class AuthorMiniSerializer(serializers.ModelSerializer):
-    # Adjust these two lines to match your profile fields if different
+
     public_name = serializers.SerializerMethodField(read_only=True)
     avatar_url = serializers.SerializerMethodField(read_only=True)
 
@@ -26,26 +26,57 @@ class AuthorMiniSerializer(serializers.ModelSerializer):
         prof = getattr(obj, "profile", None)
         return getattr(prof, "avatar_url", None)
 
+# blog/serializers.py
 class CommentSerializer(serializers.ModelSerializer):
     author = AuthorMiniSerializer(read_only=True)
     replies = serializers.SerializerMethodField(read_only=True)
+    can_edit = serializers.SerializerMethodField()
+    can_delete = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = [
             "id",
-            "post",
-            "author",         # nested author object
-            "text",           # IMPORTANT: keep as 'text'
+            "post",       # keep it here so frontend can still send for top-level comments
+            "author",
+            "text",
             "parent",
             "replies",
             "created_at",
+            "can_edit",
+            "can_delete",
         ]
         read_only_fields = ["author", "created_at", "replies"]
+        extra_kwargs = {
+            "post": {"required": False, "write_only": True},   # <-- make optional + write-only
+            "parent": {"required": False},                    # <-- also make parent optional
+        }
+
 
     def get_replies(self, obj):
         qs = obj.replies.all().order_by("created_at")
         return CommentSerializer(qs, many=True, context=self.context).data
+
+    def get_can_edit(self, obj):
+        request = self.context.get("request")
+        
+        if not request or not request.user.is_authenticated:
+            return False
+        
+        result = obj.author_id == request.user.id
+        return result
+
+    def get_can_delete(self, obj):
+        request = self.context.get("request")
+
+        
+        if not request or not request.user.is_authenticated:
+            return False
+        
+        result = obj.author_id == request.user.id or obj.post.author_id == request.user.id
+        return result
+
+
 
 class BlogPostListSerializer(serializers.ModelSerializer):
     author_username = serializers.CharField(source="author.username", read_only=True)

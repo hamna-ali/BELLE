@@ -1,148 +1,277 @@
-/* src/components/CommentItem.css */
-.cmt-item {
-  margin-top: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+:root {
+  --wine: #6B0010;
+  --wine-600: #8a1025;
+  --ink: #0d0d0d;
+  --black: #000000;
+  --white: #fff;
+  --muted: #bdbdbd;
+  --card-bg: #1b1b1e;
+  --card-border: rgba(255,255,255,0.06);
+  --text-subtle: #e8e8e8;
 }
 
+/* Comment container */
+.cmt-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  color: var(--white);
+  transition: border-color 0.2s ease;
+}
+
+.cmt-item:hover {
+  border-color: var(--wine-600);
+}
+
+/* Header */
 .cmt-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-}
-
-.cmt-author-block {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
 }
 
 .cmt-avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  background: #f0f0f0;
+  border: 2px solid var(--wine);
 }
 
-.cmt-avatar-fallback {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #ddd;
+.cmt-author {
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 10px;
+  color: var(--white);
+  flex: 1;
 }
 
-.cmt-author-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.cmt-author-name {
-  color: #111;
-}
-
-.cmt-dot {
-  color: #999;
-}
-
-.cmt-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.cmt-icon-btn {
-  border: none;
-  background: transparent;
-  color: #555;
-  padding: 4px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.cmt-icon-btn:hover {
-  background: #f3f3f3;
-  color: #111;
-}
-
-.cmt-icon-btn.cmt-danger {
-  color: #cc2a2a;
-}
-
-.cmt-icon-btn.cmt-danger:hover {
-  background: #fdeaea;
-  color: #a51616;
-}
-
-.cmt-text {
-  margin-top: 6px;
-  white-space: pre-wrap;
-  line-height: 1.5;
-}
-
-.cmt-edit-area {
-  margin-top: 8px;
-}
-
-.cmt-textarea {
-  width: 100%;
-  min-height: 70px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  resize: vertical;
-  font: inherit;
-}
-
-.cmt-edit-actions {
-  margin-top: 6px;
+.cmt-actions-inline {
   display: flex;
   gap: 8px;
 }
 
-.cmt-btn {
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
+.ui-icon-btn {
+  background: none;
+  border: none;
+  color: var(--white);
   cursor: pointer;
+  font-size: 15px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.cmt-btn:hover {
-  background: #f7f7f7;
+.ui-icon-btn:hover {
+  color: var(--wine);
+  transform: scale(1.1);
 }
 
-.cmt-btn.cmt-primary {
-  border-color: #2563eb;
-  background: #2563eb;
-  color: #fff;
+/* Text */
+.cmt-body {
+  margin-top: 8px;
 }
 
-.cmt-btn.cmt-primary:hover {
-  background: #1e51c6;
+.cmt-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--text-subtle);
 }
 
+/* Edit mode */
+.cmt-edit-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 auto; /* center horizontally */
+  max-width: 90%; /* narrower than full */
+  background: var(--card-bg); /* match comment card */
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.cmt-edit-input {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--wine-600);
+  background: #111;
+  color: var(--white);
+}
+
+.cmt-edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cmt-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Save / Comment / Post buttons */
+.cmt-btn.save,
+.cmt-btn.reply {
+  background: var(--wine);
+  color: var(--white);
+}
+.cmt-btn.save:hover,
+.cmt-btn.reply:hover {
+  background: var(--wine-600);
+}
+
+/* Cancel button */
+.cmt-btn.cancel {
+  background: #333;
+  color: var(--white);
+  border: 1px solid var(--wine);
+}
+.cmt-btn.cancel:hover {
+  background: #555;
+}
+
+/* Reply */
 .cmt-footer {
   margin-top: 6px;
 }
 
-.cmt-link {
-  border: none;
+.cmt-reply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: none;
-  color: #2563eb;
+  border: none;
+  color: var(--muted);
   cursor: pointer;
-  padding: 0;
+  font-size: 13px;
+  transition: color 0.2s ease;
 }
 
-.cmt-replies {
-  margin-top: 8px;
-  padding-left: 12px;
-  border-left: 2px solid #f1f1f1;
+.cmt-reply-btn:hover {
+  color: var(--wine);
 }
 
+.reply-icon {
+  font-size: 12px;
+}
+
+/* Reply form */
 .cmt-reply-form {
   margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.cmt-reply-input {
+  flex: 1;
+  border: 1px solid var(--wine-600);
+  border-radius: 20px;
+  padding: 8px 12px;
+  background: #111;
+  color: var(--white);
+  font-size: 14px;
+  outline: none;
+}
+
+.cmt-reply-form .cmt-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+/* Replies toggle (keep as before) */
+.cmt-toggle {
+  margin-top: 6px;
+}
+
+.cmt-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cmt-toggle-btn:hover {
+  color: var(--wine);
+}
+
+/* Replies list */
+.cmt-replies {
+  margin-top: 12px;
+  padding-left: 20px;
+  border-left: 2px solid var(--wine-600);
+}
+
+/* --- CommentForm (main comment box) --- */
+.comment-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.comment-textarea {
+  flex: 1;
+  border: 1px solid var(--wine-600);
+  border-radius: 20px;
+  padding: 8px 14px;
+  background: #111;
+  color: var(--white);
+  font-size: 14px;
+  outline: none;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto; /* keep buttons on right */
+}
+
+/* buttons inside comment form */
+.comment-btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+/* Comment button */
+.comment-btn.comment {
+  background: var(--wine);
+  color: var(--white);
+}
+.comment-btn.comment:hover {
+  background: var(--wine-600);
+}
+
+/* Post (reply post) */
+.comment-btn.post {
+  background: var(--wine);
+  color: var(--white);
+}
+.comment-btn.post:hover {
+  background: var(--wine-600);
+}
+
+/* Cancel */
+.comment-btn.cancel {
+  background: #333;
+  color: var(--white);
+  border: 1px solid var(--wine);
+}
+.comment-btn.cancel:hover {
+  background: #555;
 }

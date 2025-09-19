@@ -37,24 +37,7 @@ class SignupView(APIView):
         }, status=201)
 
 
-# class LoginView(APIView):
-#     def post(self, request):
-#         username_or_email = request.data.get("username")
-#         password = request.data.get("password")
 
-#         user = authenticate(username=username_or_email, password=password)
-#         if not user:
-#             try:
-#                 username = User.objects.get(email=username_or_email).username
-#                 user = authenticate(username=username, password=password)
-#             except User.DoesNotExist:
-#                 pass
-
-#         if not user:
-#             return Response({"error": "Invalid credentials"}, status=400)
-
-#         login(request, user)
-#         return Response({"message": "Login successful"})
 class LoginView(APIView):
     def post(self, request):
         username_or_email = request.data.get("username")

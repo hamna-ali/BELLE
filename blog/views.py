@@ -19,6 +19,8 @@ from .pagination import DefaultPagination
 # <- reuse your existing util; bucket "blog-images"
 from accounts.utils import upload_to_supabase
 
+from blog import serializers
+
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
@@ -100,18 +102,42 @@ class BlogPostViewSet(viewsets.ModelViewSet):
             liked = True
         return Response({"liked": liked, "likes_count": post.likes.count()})
 
+
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.select_related("post", "author").all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsCommentOwnerOrPostOwner]
     pagination_class = DefaultPagination
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
     def get_queryset(self):
         qs = super().get_queryset()
         post_id = self.request.query_params.get("post")
         if post_id:
-            qs = qs.filter(post_id=post_id, parent__isnull=True)
+            qs = qs.filter(post_id=post_id)
+            top = self.request.query_params.get("top_level")
+            if top in ("1", "true", "True"):
+                qs = qs.filter(parent__isnull=True)
         return qs
 
+
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        parent_id = self.request.data.get("parent")
+        post_id = self.request.data.get("post")
+
+        if parent_id:
+            try:
+                parent = Comment.objects.get(id=parent_id)
+                serializer.save(author=self.request.user, parent=parent, post=parent.post)
+                return
+            except Comment.DoesNotExist:
+                raise serializers.ValidationError({"parent": "Invalid parent ID."})
+
+        if post_id:
+            serializer.save(author=self.request.user, post_id=post_id)
+        else:
+            raise serializers.ValidationError({"post": "This field is required."})

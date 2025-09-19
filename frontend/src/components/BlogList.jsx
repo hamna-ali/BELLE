@@ -1,7 +1,7 @@
 import React from "react";
 import BlogCard from "./BlogCard";
 
-const BlogList = ({ blogs = [], currentUser, onDelete }) => {
+const BlogList = ({ blogs = [], currentUser, onDelete, showActions = false }) => {
   if (!blogs?.length) {
     return <p className="empty-text">No posts found.</p>;
   }
@@ -13,7 +13,8 @@ const BlogList = ({ blogs = [], currentUser, onDelete }) => {
           key={post.id ?? post.pk ?? post.slug}
           post={post}
           currentUser={currentUser}
-          onDelete={onDelete}   // expects a function that removes by id: (id) => setBlogs(prev => prev.filter(p => (p.id ?? p.pk) !== id))
+          onDelete={onDelete}
+          showActions={showActions}   // 🔹 pass flag down
         />
       ))}
     </div>

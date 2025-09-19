@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getProfile } from "../api/profile";   // ✅ fetch profile API
+import fallbackAvatar from "../assets/images/profile.jpg"; // ✅ add default avatar
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -7,14 +9,23 @@ const Navbar = () => {
   const [catOpen, setCatOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);   // ✅ store user profile
 
+  const navigate = useNavigate();
   const profileRef = useRef(null);
 
-  const username =
-    localStorage.getItem("username") ||
-    JSON.parse(localStorage.getItem("user") || "{}")?.username ||
-    "";
+  // ✅ Fetch profile data once on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await getProfile();
+        setProfile(res?.data || null);
+      } catch (err) {
+        console.error("Failed to fetch profile:", err);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -28,7 +39,6 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // Close profile dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
@@ -42,7 +52,6 @@ const Navbar = () => {
   const menuLinks = [
     { name: "Home", to: "/" },
     { name: "Post", to: "/blogs/create" },
-    // { name: "My Blogs", to: "/blogs?mine=true" },
     { name: "My Blogs", to: "/my-blogs" },
     { name: "About Us", to: "/about" },
   ];
@@ -53,6 +62,10 @@ const Navbar = () => {
     { name: "Skincare", slug: "skincare" },
     { name: "Dressing", slug: "dressing" },
   ];
+
+  // ✅ avatar logic
+  const avatarSrc = profile?.avatar_url || fallbackAvatar;
+  const avatarAlt = profile?.username || "User";
 
   return (
     <>
@@ -69,7 +82,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Navbar center menu - hidden on mobile */}
+        {/* Navbar center menu */}
         <ul className="navbar-menu">
           {menuLinks.map((link) => (
             <li key={link.name}>
@@ -115,7 +128,14 @@ const Navbar = () => {
             ref={profileRef}
             onClick={() => setProfileOpen(!profileOpen)}
           >
-            {(username?.[0] || "U").toUpperCase()}
+            {/* ✅ Avatar image instead of letter */}
+            <img
+              src={avatarSrc}
+              alt={avatarAlt}
+              className="nav-avatar"
+              onError={(e) => (e.currentTarget.src = fallbackAvatar)}
+            />
+
             {profileOpen && (
               <ul className="nav-profile-menu">
                 <li>

@@ -131,3 +131,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"  # should be this (defaul
 SESSION_COOKIE_SECURE = False  # set False for local dev (True only with HTTPS)
 CSRF_COOKIE_SECURE = False     # same
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+# 🚀 Redirect settings (prevents Django from sending users to /accounts/profile/)
+LOGIN_REDIRECT_URL = "/"       # after login, redirect to homepage or API root
+LOGOUT_REDIRECT_URL = "/"      # after logout, go back home

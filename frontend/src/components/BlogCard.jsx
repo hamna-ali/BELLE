@@ -41,19 +41,36 @@ const handleDelete = () => {
   return (
     <article className="ui-card">
       <div className="ui-card__media">
-        <img
-          src={src}
-          alt={title}
-          className="ui-card__img"
-          loading="lazy"
-          onError={(e) => {
-            if (e.currentTarget.src !== fallbackImg) {
-              e.currentTarget.src = fallbackImg;
-            }
-          }}
-        />
+        {postId ? (
+          <Link to={to} className="ui-card__media-link">
+            <img
+              src={src}
+              alt={title}
+              className="ui-card__img"
+              loading="lazy"
+              onError={(e) => {
+                if (e.currentTarget.src !== fallbackImg) {
+                  e.currentTarget.src = fallbackImg;
+                }
+              }}
+            />
+          </Link>
+        ) : (
+          <img
+            src={src}
+            alt={title}
+            className="ui-card__img"
+            loading="lazy"
+            onError={(e) => {
+              if (e.currentTarget.src !== fallbackImg) {
+                e.currentTarget.src = fallbackImg;
+              }
+            }}
+          />
+        )}
         {!!chip && <span className="ui-card__badge">{chip}</span>}
       </div>
+
 
       <div className="ui-card__body">
         <h3 className="ui-card__title">

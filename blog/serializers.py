@@ -84,46 +84,60 @@ class BlogPostListSerializer(serializers.ModelSerializer):
     category_slug = serializers.SlugField(source="category.slug", read_only=True)
     likes_count = serializers.IntegerField(source="likes.count", read_only=True)
     is_liked = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()  # Add this field
 
     class Meta:
         model = BlogPost
         fields = [
             "id", "title", "slug", "image_url", "category", "category_slug",
-            "author_username", "likes_count", "is_liked", "created_at"
+            "author_username", "likes_count", "is_liked", "is_owner", "created_at"  # Add is_owner to fields
         ]
 
     def get_is_liked(self, obj):
         user = self.context.get("request").user
         if user.is_authenticated:
-            return obj.like.filter(user=user).exists()  # use correct related_name
+            return obj.like.filter(user=user).exists()
+        return False
+    
+    def get_is_owner(self, obj):
+        """Check if the current authenticated user is the owner of this blog post"""
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            return obj.author.id == request.user.id
         return False
 
 class BlogPostDetailSerializer(serializers.ModelSerializer):
     author_username = serializers.CharField(source="author.username", read_only=True)
-    category = serializers.PrimaryKeyRelatedField(
-        queryset=Category.objects.all()
-    )
+    category = CategorySerializer(read_only=True)  # For reading
+    category_id = serializers.IntegerField(write_only=True)
     likes_count = serializers.IntegerField(source="likes.count", read_only=True)
-    is_liked = serializers.SerializerMethodField()  # already defined
+    is_liked = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()  # ✅ ADD THIS LINE
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = BlogPost
         fields = [
             "id", "title", "slug", "content", "image_url",
-            "category", "author", "author_username",
-            "likes_count", "is_liked",
+            "category", "category_id", "author", "author_username",
+            "likes_count", "is_liked", "is_owner",  # ✅ Also fix spacing here
             "created_at", "updated_at",
             "comments",
         ]
         read_only_fields = [
-            "author", "slug", "created_at", "updated_at", "likes_count", "is_liked"
+            "author", "slug", "created_at", "updated_at", 
+            "likes_count", "is_liked"
         ]
 
-    # ✅ Add this method
     def get_is_liked(self, obj):
         user = self.context.get("request").user
         if user.is_authenticated:
-            return obj.like.filter(user=user).exists()  # ✅ filter by user
+            return obj.like.filter(user=user).exists()
         return False
-
+    
+    def get_is_owner(self, obj):
+        """Check if the current authenticated user is the owner of this blog post"""
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            return obj.author.id == request.user.id
+        return False

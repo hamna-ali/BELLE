@@ -76,6 +76,12 @@
   min-width: 160px;
   z-index: 2000;
   box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+  display: none; /* Hide dropdown by default */
+}
+
+/* Show dropdown on hover */
+.nav-dropdown:hover .nav-dropdown-menu {
+  display: block;
 }
 
 .nav-dropdown-menu li a {
@@ -87,7 +93,7 @@
 
 .nav-dropdown-menu li a:hover {
   background-color: #6B0010; /* Wine red hover */
-  color: #fff;
+  color: #ffffff !important; /* Force white text with !important */
 }
 
 /* Right Side (Search + Profile) */
@@ -254,4 +260,71 @@
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+}
+/* ✅ Fix for AskAI button styling in navbar */
+.nav-link-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link-button:hover {
+  color: #B76E79; /* Same hover effect as other nav links */
+}
+
+/* ✅ Fix for AskAI button styling in sidebar */
+.sidebar-button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  display: block;
+}
+
+.sidebar-button:hover {
+  background: #6B0010; /* Wine red - same as other sidebar links */
+  color: #fff;
+}
+
+/* ✅ Update existing navbar menu links hover effect */
+.navbar-menu li a:hover {
+  color: #B76E79;
+}
+
+/* ✅ Ensure consistent styling for all sidebar links and buttons */
+.sidebar ul li a,
+.sidebar ul li button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  text-align: left;
+  display: block;
+  padding: 8px 0; /* Add consistent padding */
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li button:hover {
+  background: #6B0010; /* Wine red */
+  color: #fff;
+  padding: 8px 12px; /* Add padding on hover for better visual feedback */
+  margin: 0 -12px; /* Negative margin to maintain alignment */
+  border-radius: 4px;
 }

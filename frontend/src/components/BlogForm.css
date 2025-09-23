@@ -38,7 +38,7 @@
   transition: 0.3s;
 }
 .file-upload-box:hover {
-  color: #b11226; /* wine red */
+  color: #6B0010; /* wine red */
 }
 
 /* Fields */
@@ -72,7 +72,7 @@
 }
 
 .blog-select:focus {
-  border-color: #b11226;
+  border-color: #6B0010;
   outline: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23b11226' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
 }
@@ -80,7 +80,7 @@
 
 .blog-input:focus {
   outline: none;
-  border-color: #b11226;
+  border-color: #6B0010;
 }
 
 /* Dropdown Hover */
@@ -90,7 +90,7 @@
 }
 .blog-input option:hover,
 .blog-input option:focus {
-  background: #b11226 ;
+  background: #6B0010 ;
   color: white;
 }
 
@@ -113,7 +113,7 @@
 
 .ql-toolbar button:hover svg,
 .ql-toolbar button:focus svg {
-  color: #b11226 !important;    /* wine red on hover/focus */
+  color: #6B0010 !important;    /* wine red on hover/focus */
 }
 .ql-container {
   border: none !important;
@@ -125,7 +125,7 @@
 
 /* Button */
 .blog-btn {
-  background: #b11226;
+  background: #6B0010;
   color: white;
   border: none;
   padding: 12px;
@@ -137,4 +137,88 @@
 .blog-btn:hover {
   background: white;
   color: #b11226;
+}
+/* AI Mini Button for Title Input */
+.input-with-ai {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-with-ai .blog-input {
+  flex: 1;
+}
+
+.ai-mini-btn {
+  background: #6B0010;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+  min-width: -webkit-fill-available;
+  min-width: 48px;
+  height: 42px; /* Match input height */
+}
+
+.ai-mini-btn:hover {
+  background: white;
+  color: #b11226;
+}
+
+.ai-mini-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* AI Buttons Container - positioned above Create Post button */
+.ai-buttons-container {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+/* AI Suggestion and Expansion buttons - smaller like Update/Delete */
+.ai-btn {
+  flex: 1;
+  background: #6B0010 !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 0.85rem !important;
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.ai-btn:hover {
+  background: white !important;
+  color: #b11226 !important;
+}
+
+.ai-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Ensure Create Post button maintains its current styling */
+.blog-btn:not(.ai-btn) {
+  background: #6B0010;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.blog-btn:not(.ai-btn):hover {
+  background: white;
+  color: #6B0010;
 }

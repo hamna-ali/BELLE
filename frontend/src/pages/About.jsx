@@ -10,10 +10,6 @@ export default function AboutUs() {
         <img src={aboutImg} alt="Fashion moodboard" className="au-hero-img" />
         <div className="au-hero-overlay" />
         <div className="au-hero-content">
-          <h1 className="au-title">About Belle</h1>
-          <p className="au-subtitle">
-            Stories, style, and the culture of getting dressed.
-          </p>
         </div>
       </section>
 

@@ -1,6 +1,8 @@
 // src/pages/EditBlog.jsx
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import { getPost, updatePost } from "../api/blog";
 import Loader from "../components/Loader";
 import fallbackImg from "../assets/images/fallback.png";
@@ -25,6 +27,30 @@ const EditBlog = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // React Quill modules configuration (same as CreateBlog)
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['blockquote', 'code-block'],
+      ['link', 'image'],
+      [{ align: [] }],
+      [{ color: [] }, { background: [] }],
+      ['clean']
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'list', 'bullet',
+    'blockquote', 'code-block',
+    'link', 'image',
+    'align',
+    'color', 'background'
+  ];
 
   // fetch blog just like BlogDetail
   useEffect(() => {
@@ -54,8 +80,19 @@ const EditBlog = () => {
     }
   };
 
+  const handleContentChange = (value) => {
+    setContent(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate content is not empty
+    if (!content || content.trim() === '<p><br></p>' || content.trim() === '') {
+      alert('Content cannot be empty!');
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append("title", title);
@@ -117,14 +154,20 @@ const EditBlog = () => {
           />
 
           <label className="form-label">Blog Content</label>
-          <textarea
-            className="form-input"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Write your content here..."
-            rows={8}
-            required
-          />
+          <div className="quill-wrapper">
+            <ReactQuill
+              theme="snow"
+              value={content}
+              onChange={handleContentChange}
+              modules={modules}
+              formats={formats}
+              placeholder="Write your content here..."
+              style={{
+                backgroundColor: 'transparent',
+                color: '#fff'
+              }}
+            />
+          </div>
 
           <button type="submit" className="submit-btn">
             Save Changes

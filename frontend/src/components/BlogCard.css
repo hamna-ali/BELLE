@@ -43,6 +43,16 @@
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   height: 100%; /* stretch to equal height in grid */
 }
+.ui-card__media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.ui-card__media-link:hover .ui-card__img {
+  transform: scale(1.03);
+}
 
 .ui-card:hover {
   transform: translateY(-4px);
@@ -54,16 +64,21 @@
 /* Media (thumbnail) */
 .ui-card__media {
   position: relative;
-  aspect-ratio: 16 / 9; /* widescreen like screenshot */
+  width: 100%;
+  height: 200px; /* Fixed height instead of aspect-ratio */
   background: #121212;
+  overflow: hidden;
 }
+
 .ui-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center; /* Center the crop */
   display: block;
   transition: transform .45s ease;
 }
+
 .ui-card:hover .ui-card__img {
   transform: scale(1.03);
 }

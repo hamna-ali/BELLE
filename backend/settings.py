@@ -8,6 +8,8 @@ load_dotenv()  # load variables from .env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fallback-secret-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 

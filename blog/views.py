@@ -141,3 +141,234 @@ class CommentViewSet(viewsets.ModelViewSet):
             serializer.save(author=self.request.user, post_id=post_id)
         else:
             raise serializers.ValidationError({"post": "This field is required."})
+
+
+import os
+from openai import OpenAI
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+import json
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
+# ==================== ENHANCED AI VIEWS ====================
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+@method_decorator(csrf_exempt, name="dispatch")
+class GPTAutocompleteView(View):
+    """Enhanced keyboard suggestions for blog post creation"""
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            prompt = data.get("prompt", "")
+            context_type = data.get("context", "general")
+            
+            if not prompt.strip():
+                return JsonResponse({"error": "Prompt cannot be empty", "success": False}, status=400)
+            
+            # Customize system message based on context
+            if context_type == "title":
+                system_msg = "You are a helpful writing assistant for blog titles. Suggest creative, engaging title completions for beauty and lifestyle blogs. Keep suggestions under 10 words."
+            elif context_type == "content":
+                system_msg = "You are a helpful writing assistant for blog content. Provide natural, flowing text continuations that match the writing style. Keep responses under 50 words."
+            else:
+                system_msg = "You are a helpful writing assistant for blogs. Provide contextual suggestions to complete the user's thought. Keep responses concise and natural."
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": f"Continue this {context_type}: {prompt}"},
+                ],
+                max_tokens=60,
+                temperature=0.7,
+            )
+
+            suggestion = response.choices[0].message.content.strip()
+            return JsonResponse({"suggestion": suggestion, "success": True})
+
+        except Exception as e:
+            print(f"GPT Autocomplete Error: {e}")  # For debugging
+            return JsonResponse({"error": str(e), "success": False}, status=500)
+
+@method_decorator(csrf_exempt, name="dispatch") 
+class ChatbotView(View):  # ✅ Remove LoginRequiredMixin
+    """Main AI chatbot for user interaction"""
+    
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            message = data.get("message", "")
+            conversation_history = data.get("history", [])
+            
+            if not message.strip():
+                return JsonResponse({"error": "Message cannot be empty", "success": False}, status=400)
+
+            # Build conversation context
+            messages = [
+                {
+                    "role": "system", 
+                    "content": "You are BELLE AI, a helpful assistant for a beauty and lifestyle blogging platform called BELLE. Help users with:\n- Writing tips and content ideas for beauty blogs\n- Platform navigation and features\n- Beauty and lifestyle advice\n- General questions about makeup, skincare, hair, and dressing\n\nBe friendly, knowledgeable, and concise. Keep responses under 150 words unless specifically asked for detailed information."
+                }
+            ]
+            
+            # Add conversation history (last 8 messages to maintain context)
+            for msg in conversation_history[-8:]:
+                if msg.get("role") in ["user", "assistant"] and msg.get("content"):
+                    messages.append({"role": msg["role"], "content": msg["content"]})
+            
+            messages.append({"role": "user", "content": message})
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=messages,
+                max_tokens=200,
+                temperature=0.8,
+            )
+
+            ai_response = response.choices[0].message.content.strip()
+            
+            return JsonResponse({
+                "response": ai_response,
+                "success": True,
+                "timestamp": timezone.now().isoformat()
+            })
+
+        except Exception as e:
+            print(f"Chatbot Error: {e}")  # For debugging
+            return JsonResponse({
+                "error": "I'm having trouble processing your request. Please try again.", 
+                "success": False
+            }, status=500)
+
+@method_decorator(csrf_exempt, name="dispatch")
+class ContentIdeasView(View):  # ✅ Remove LoginRequiredMixin
+    """Generate content ideas for blog posts"""
+    
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            category = data.get("category", "beauty")
+            tone = data.get("tone", "casual")
+            
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {
+                        "role": "system", 
+                        "content": f"Generate 5 creative blog post ideas for {category} content with a {tone} tone. Format as a simple numbered list. Focus on beauty, makeup, skincare, hair care, and fashion topics."
+                    },
+                    {
+                        "role": "user", 
+                        "content": f"Give me trending blog post ideas for {category} with {tone} tone"
+                    }
+                ],
+                max_tokens=150,
+                temperature=0.9,
+            )
+
+            ideas = response.choices[0].message.content.strip()
+            return JsonResponse({"ideas": ideas, "success": True})
+
+        except Exception as e:
+            print(f"Content Ideas Error: {e}")  # For debugging
+            return JsonResponse({"error": str(e), "success": False}, status=500)
+
+@method_decorator(csrf_exempt, name="dispatch")
+class WritingTipsView(View):
+    """Get writing tips for blog improvement"""
+    
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            blog_type = data.get("type", "general")
+            
+            # Predefined tips based on blog type
+            tips_map = {
+                "makeup": [
+                    "Start with your skin prep routine",
+                    "Include before/after photos",
+                    "Mention specific product names and shades",
+                    "Add step-by-step application tips",
+                    "Include lighting and photography tips"
+                ],
+                "skincare": [
+                    "Always mention skin types for each product",
+                    "Include ingredient explanations",
+                    "Add patch testing reminders",
+                    "Share your skin journey story",
+                    "Include morning vs evening routines"
+                ],
+                "hair": [
+                    "Specify hair type and texture",
+                    "Include heat protection reminders",
+                    "Add styling time estimates",
+                    "Mention weather considerations",
+                    "Include product application amounts"
+                ],
+                "fashion": [
+                    "Include body type styling tips",
+                    "Add occasion-appropriate suggestions",
+                    "Mention fabric care instructions",
+                    "Include budget-friendly alternatives",
+                    "Add seasonal styling variations"
+                ],
+                "general": [
+                    "Start with a compelling hook",
+                    "Use personal stories and experiences",
+                    "Include high-quality images",
+                    "Write in a conversational tone",
+                    "End with a call-to-action",
+                    "Optimize for SEO with relevant keywords"
+                ]
+            }
+            
+            tips = tips_map.get(blog_type, tips_map["general"])
+            formatted_tips = "\n".join([f"• {tip}" for tip in tips])
+            
+            return JsonResponse({
+                "tips": formatted_tips,
+                "type": blog_type,
+                "success": True
+            })
+
+        except Exception as e:
+            print(f"Writing Tips Error: {e}")  # For debugging
+            return JsonResponse({"error": str(e), "success": False}, status=500)
+
+@method_decorator(csrf_exempt, name="dispatch")
+class SEOSuggestionsView(View):  # ✅ Remove LoginRequiredMixin
+    """Generate SEO suggestions for blog posts"""
+    
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            title = data.get("title", "")
+            content = data.get("content", "")
+            category = data.get("category", "beauty")
+            
+            if not title.strip():
+                return JsonResponse({"error": "Title is required", "success": False}, status=400)
+            
+            prompt = f"Analyze this blog post and provide SEO suggestions:\nTitle: {title}\nCategory: {category}\nContent: {content[:200]}..."
+            
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {
+                        "role": "system", 
+                        "content": "You are an SEO expert for beauty and lifestyle blogs. Provide specific, actionable SEO suggestions including keywords, meta descriptions, and content improvements."
+                    },
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=200,
+                temperature=0.7,
+            )
+
+            suggestions = response.choices[0].message.content.strip()
+            return JsonResponse({"suggestions": suggestions, "success": True})
+
+        except Exception as e:
+            print(f"SEO Suggestions Error: {e}")  # For debugging
+            return JsonResponse({"error": str(e), "success": False}, status=500)

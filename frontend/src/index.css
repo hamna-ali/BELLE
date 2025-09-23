@@ -28,10 +28,11 @@ top: 0;
 z-index: 10;
 background: #000;
 color: #fff;
-padding: 12px 20px;
+padding: 8px 20px;
 display: flex;
 align-items: center;
 gap: 16px;
+height: 50px;
 }
 
 .nav a { color: #fff; text-decoration: none; }

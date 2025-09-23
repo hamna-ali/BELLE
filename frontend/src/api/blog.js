@@ -79,3 +79,89 @@ export const deleteComment = async (id) => {
   const res = await api.delete(`/blog/comments/${id}/`);
   return res.data;
 };
+
+// ================= AI FUNCTIONS =================
+
+// Keyboard suggestions for blog writing
+// ================= WRITING SUGGESTIONS FOR BLOG FORM =================
+
+// Get writing suggestions for the existing BlogForm (with manual button)
+export const getWritingSuggestion = async (prompt, context = "content") => {
+  try {
+    const response = await api.post("/blog/ai/autocomplete/", {
+      prompt: prompt,
+      context: context // "title", "content", or "general"
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Blog suggestion error:", error);
+    throw error;
+  }
+};
+
+// Main chatbot interaction
+export const sendChatMessage = async (message, history = []) => {
+  try {
+    const response = await api.post("/blog/ai/chatbot/", {
+      message: message,
+      history: history
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Chatbot error:", error);
+    throw error;
+  }
+};
+
+// Generate content ideas
+export const getContentIdeas = async (category = "beauty", tone = "casual") => {
+  try {
+    const response = await api.post("/blog/ai/content-ideas/", {
+      category: category,
+      tone: tone
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Content ideas error:", error);
+    throw error;
+  }
+};
+
+// Get writing tips for specific blog types
+export const getWritingTips = async (blogType = "general") => {
+  try {
+    const response = await api.post("/blog/ai/writing-tips/", {
+      type: blogType
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Writing tips error:", error);
+    throw error;
+  }
+};
+
+// Get SEO suggestions for blog posts
+export const getSEOSuggestions = async (title, content = "", category = "beauty") => {
+  try {
+    const response = await api.post("/blog/ai/seo-suggestions/", {
+      title: title,
+      content: content,
+      category: category
+    });
+    return response.data;
+  } catch (error) {
+    console.error("SEO suggestions error:", error);
+    throw error;
+  }
+};
+
+// Quick content generation for specific topics
+export const getTopicSuggestions = async (topic) => {
+  try {
+    const response = await sendChatMessage(`Give me content ideas for ${topic} blog posts`);
+    return response;
+  } catch (error) {
+    console.error("Topic suggestions error:", error);
+    throw error;
+  }
+};

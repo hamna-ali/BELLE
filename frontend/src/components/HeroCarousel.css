@@ -124,10 +124,24 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .hero { margin-top: 50px; }
-  .hero-slide { height: 60vh; min-height: 300px; }
+  .hero { 
+    margin-top: 0; /* Remove extra margin */
+  }
+  .hero-slide { 
+    height: calc(100vh - 45px); /* Match mobile navbar height */
+    min-height: 300px; 
+  }
   .hero-title { font-size: 28px; }
   .hero-desc { font-size: 14px; }
   .hero-cta { padding: 10px 20px; font-size: 14px; }
   .hero-nav { height: 40px; width: 40px; }
+}
+
+@media (max-width: 480px) {
+  .hero-slide { 
+    height: calc(100vh - 42px); /* Match very small mobile navbar height */
+    min-height: 280px; 
+  }
+  .hero-title { font-size: 24px; }
+  .hero-desc { font-size: 13px; }
 }

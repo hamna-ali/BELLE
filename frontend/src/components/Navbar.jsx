@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getProfile } from "../api/profile";   // ✅ fetch profile API
-import fallbackAvatar from "../assets/images/profile.jpg"; // ✅ add default avatar
+import { getProfile } from "../api/profile";
+import fallbackAvatar from "../assets/images/profile.jpg";
+import AIAssistant from "./AIAssistant"; // ✅ Import AIAssistant
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -9,7 +10,8 @@ const Navbar = () => {
   const [catOpen, setCatOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [profile, setProfile] = useState(null);   // ✅ store user profile
+  const [profile, setProfile] = useState(null);
+  const [chatbotOpen, setChatbotOpen] = useState(false); // ✅ Add chatbot state
 
   const navigate = useNavigate();
   const profileRef = useRef(null);
@@ -39,6 +41,13 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  // ✅ Handle AskAI click
+  const handleAskAI = (e) => {
+    e.preventDefault();
+    setChatbotOpen(true);
+    setSidebarOpen(false); // Close sidebar if open
+  };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
@@ -53,6 +62,7 @@ const Navbar = () => {
     { name: "Home", to: "/" },
     { name: "Post", to: "/blogs/create" },
     { name: "My Blogs", to: "/my-blogs" },
+    { name: "AskAI", to: "#", onClick: handleAskAI }, // ✅ Add AskAI
     { name: "About Us", to: "/about" },
   ];
 
@@ -63,7 +73,6 @@ const Navbar = () => {
     { name: "Dressing", slug: "dressing" },
   ];
 
-  // ✅ avatar logic
   const avatarSrc = profile?.avatar_url || fallbackAvatar;
   const avatarAlt = profile?.username || "User";
 
@@ -86,7 +95,17 @@ const Navbar = () => {
         <ul className="navbar-menu">
           {menuLinks.map((link) => (
             <li key={link.name}>
-              <Link to={link.to}>{link.name}</Link>
+              {link.onClick ? (
+                <button 
+                  type="button" 
+                  onClick={link.onClick}
+                  className="nav-link-button"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link to={link.to}>{link.name}</Link>
+              )}
             </li>
           ))}
 
@@ -128,7 +147,6 @@ const Navbar = () => {
             ref={profileRef}
             onClick={() => setProfileOpen(!profileOpen)}
           >
-            {/* ✅ Avatar image instead of letter */}
             <img
               src={avatarSrc}
               alt={avatarAlt}
@@ -166,9 +184,21 @@ const Navbar = () => {
         <ul>
           {menuLinks.map((link) => (
             <li key={link.name}>
-              <Link to={link.to} onClick={() => setSidebarOpen(false)}>
-                {link.name}
-              </Link>
+              {link.onClick ? (
+                <button 
+                  onClick={(e) => {
+                    link.onClick(e);
+                    setSidebarOpen(false);
+                  }}
+                  className="sidebar-button"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link to={link.to} onClick={() => setSidebarOpen(false)}>
+                  {link.name}
+                </Link>
+              )}
             </li>
           ))}
           <li>Category</li>
@@ -192,6 +222,12 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+
+      {/* ✅ AI Chatbot Integration */}
+      <AIAssistant 
+        isOpen={chatbotOpen} 
+        onClose={() => setChatbotOpen(false)} 
+      />
     </>
   );
 };

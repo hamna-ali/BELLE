@@ -87,16 +87,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.SessionAuthentication',   # <-- allow admin session login
-#         'rest_framework.authentication.BasicAuthentication',     # <-- optional (for browsable API)
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',  # <-- for your React app
-#     )
-# }
+
 REST_FRAMEWORK = {
     # ✅ Authentication (keep your existing ones so nothing breaks)
     "DEFAULT_AUTHENTICATION_CLASSES": (

@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 import dj_database_url  # <-- Add this
 
 load_dotenv()  # load variables from .env
-
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "fallback-secret-key")
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
-DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
+DEBUG = os.getenv("DJANGO_DEBUG")
 
 # ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",") + ['.onrender.com', '.vercel.app']

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import dj_database_url  # <-- Add this
 
 load_dotenv()  # load variables from .env
-print("DATABASE_URL:", os.getenv("DATABASE_URL"))
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

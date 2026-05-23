@@ -274,16 +274,16 @@ const AIAssistant = ({ isOpen, onClose }) => {
         {/* Quick replies */}
         <div className="ai-quick-replies">
           <button onClick={() => getQuickReply("ideas")} className="quick-reply">
-            💡 Content Ideas
+            ● Content Ideas
           </button>
           <button onClick={() => getQuickReply("tips")} className="quick-reply">
-            ✍️ Writing Tips
+            ● Writing Tips
           </button>
           <button onClick={() => getQuickReply("seo")} className="quick-reply">
-            🔍 SEO Tips
+            ● SEO Tips
           </button>
           <button onClick={() => getQuickReply("makeup")} className="quick-reply">
-            💄 Makeup Ideas
+            ● Makeup Ideas
           </button>
         </div>
 

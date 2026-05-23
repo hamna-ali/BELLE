@@ -6,9 +6,9 @@ The project provides a seamless blogging experience with a **Django REST API bac
 
 ---
 
-## ✨ Features  
+## Features  
 
-### 🔮 Frontend (React)
+### Frontend (React)
 - **User Authentication**  
   - Sign up / Login forms  
   - JWT token-based authentication & session management  
@@ -35,7 +35,7 @@ The project provides a seamless blogging experience with a **Django REST API bac
 
 ---
 
-### ⚙️ Backend (Django + Django REST Framework)
+### Backend (Django + Django REST Framework)
 - **User Authentication**  
   - Django’s built-in authentication  
   - JWT-based secure API access  
@@ -49,7 +49,7 @@ The project provides a seamless blogging experience with a **Django REST API bac
 
 ---
 
-## 🛠️ Tech Stack  
+## Tech Stack  
 
 - **Frontend**: React, Redux, Axios, React-Quill  
 - **Backend**: Django, Django REST Framework  
@@ -59,14 +59,14 @@ The project provides a seamless blogging experience with a **Django REST API bac
 
 ---
 
-## 🗂️ App Structure  
+## App Structure  
 
-### 🌍 Global Layout
+### Global Layout
 - **Navbar**: Logo, Home, Post, Category, My Blogs, About, Search bar, Profile dropdown  
 - **Sidebar**: Collapsible, same menu as navbar with profile & logout options  
 - **Footer**: Social media icons (Instagram, Facebook, Twitter), legal info  
 
-### 📄 Pages
+### Pages
 1. **Home** – Hero carousel + latest blogs  
 2. **Post Page** – Create/Edit blog with category, title, image & editor  
 3. **Category Page** – Category-specific blog listings with pagination  
@@ -77,7 +77,7 @@ The project provides a seamless blogging experience with a **Django REST API bac
 
 ---
 
-## 🎨 Design & Theme  
+## Design & Theme  
 
 - **Primary Color**: Deep Wine Red `#6B0010`  
 - **Accent Color**: Rose Gold `#B76E79`  
@@ -85,21 +85,21 @@ The project provides a seamless blogging experience with a **Django REST API bac
 - **Cards/Fields**: Pearl White `#F5F5F5`  
 - **Typography**: White & Light Gray with Rose Gold highlights  
 
-✨ **Extra Styling**
+**Extra Styling**
 - Hero carousel with dark overlay + wine-red headings  
 - Rose gold hover glows & borders  
 - Zoom-in blog thumbnails with subtle highlights  
 
 ---
 
-## 🚀 Getting Started  
+## Getting Started  
 
-### 🔧 Prerequisites
+### Prerequisites
 - **Node.js** & npm  
 - **Python 3.10+**  
 - **PostgreSQL**  
 
-### 📥 Clone Repository
+### Clone Repository
 ```bash
 git clone https://github.com/hamna-ali/BELLE.git
 cd BELLE

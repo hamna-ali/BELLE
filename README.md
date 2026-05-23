@@ -1,106 +1,155 @@
-# BELLE – Community Fashion Blogging App for Women  
+# BELLE – AI-Powered Community Fashion Blogging Platform
 
-**BELLE** (meaning *beauty* in French) is a modern **community-driven fashion blogging platform** where women can create, share, and engage with blogs about **hair, makeup, skincare, and dressing styles**.  
+BELLE is a modern community-driven fashion blogging platform designed for women to create, share, and explore content related to skincare, makeup, haircare, and fashion styling.
 
-The project provides a seamless blogging experience with a **Django REST API backend** and a **React-powered frontend**, styled with a seductive **wine-red & rose-gold theme** for an elegant user experience.  
-
----
-
-## Features  
-
-### Frontend (React)
-- **User Authentication**  
-  - Sign up / Login forms  
-  - JWT token-based authentication & session management  
-
-- **Dashboard**  
-  - View all blogs created by the user  
-  - Detailed view of blog posts (title, content, author, date)  
-
-- **Blog Management**  
-  - Create, edit, and delete blog posts  
-  - Rich text editing with **React Quill**  
-  - Image upload for posts  
-
-- **Comments & Likes**  
-  - Add and view comments under blogs  
-  - Instagram-style like/unlike system  
-
-- **Search & Categories**  
-  - Search blogs by title  
-  - Explore blogs by category: *Hair, Makeup, Skincare, Dressing*  
-
-- **Responsive Design**  
-  - Optimized for **desktop, tablet, and mobile**  
+Built with a Django REST Framework backend and a React frontend, BELLE combines social blogging features with AI-powered assistance to enhance content creation and user engagement.
 
 ---
 
-### Backend (Django + Django REST Framework)
-- **User Authentication**  
-  - Django’s built-in authentication  
-  - JWT-based secure API access  
+# Features
 
-- **RESTful API Endpoints**  
-  - CRUD operations for blogs & comments  
-  - Secure endpoints with validation & error handling  
-
-- **Database**  
-  - **PostgreSQL** for reliable storage of blogs, users, and comments  
+## User Authentication
+- Secure user registration and login
+- JWT-based authentication and session management
+- User profile management with profile image, bio, and social links
 
 ---
 
-## Tech Stack  
-
-- **Frontend**: React, Redux, Axios, React-Quill  
-- **Backend**: Django, Django REST Framework  
-- **Database**: PostgreSQL  
-- **Authentication**: JWT (JSON Web Tokens)  
-- **UI/Styling**: Tailwind CSS / Bootstrap / Material UI (optional)  
-
----
-
-## App Structure  
-
-### Global Layout
-- **Navbar**: Logo, Home, Post, Category, My Blogs, About, Search bar, Profile dropdown  
-- **Sidebar**: Collapsible, same menu as navbar with profile & logout options  
-- **Footer**: Social media icons (Instagram, Facebook, Twitter), legal info  
-
-### Pages
-1. **Home** – Hero carousel + latest blogs  
-2. **Post Page** – Create/Edit blog with category, title, image & editor  
-3. **Category Page** – Category-specific blog listings with pagination  
-4. **My Blogs** – Manage user’s own blogs (edit/delete)  
-5. **Profile Page** – Profile picture, bio, socials, change password, delete account  
-6. **Blog Detail** – Blog content, likes, comments, related blogs  
-7. **Auth Pages** – Custom-themed sign up & sign in forms  
+## Blog Management
+- Create, edit, and delete blog posts
+- Rich text editor integration using React Quill
+- Upload blog cover images
+- Categorize blogs into:
+  - Haircare
+  - Makeup
+  - Skincare
+  - Dressing & Fashion
 
 ---
 
-## Design & Theme  
+## AI Writing Assistant
+BELLE includes an AI-powered assistant integrated directly into the blogging workflow.
 
-- **Primary Color**: Deep Wine Red `#6B0010`  
-- **Accent Color**: Rose Gold `#B76E79`  
-- **Background**: Black gradient `#000000 → #0A0A0A`  
-- **Cards/Fields**: Pearl White `#F5F5F5`  
-- **Typography**: White & Light Gray with Rose Gold highlights  
-
-**Extra Styling**
-- Hero carousel with dark overlay + wine-red headings  
-- Rose gold hover glows & borders  
-- Zoom-in blog thumbnails with subtle highlights  
+### AI Features
+- Generate blog ideas and content suggestions
+- Writing assistance for improving readability and structure
+- SEO optimization suggestions
+- Beauty and fashion content inspiration
+- Context-aware AI responses for user-specific queries
 
 ---
 
-## Getting Started  
+## AI Chatbot
+The platform also includes an intelligent chatbot system capable of responding to user-specific beauty and fashion queries.
 
-### Prerequisites
-- **Node.js** & npm  
-- **Python 3.10+**  
-- **PostgreSQL**  
+### Example Use Cases
+- Skincare recommendations
+- Makeup suggestions
+- Fashion styling tips
+- Content inspiration
+- Personalized beauty guidance
 
-### Clone Repository
+---
+
+## Social Features
+- Like and unlike blog posts
+- Comment system for discussions and interaction
+- Search blogs by title or category
+- Explore blogs from the community
+
+---
+
+## Responsive User Interface
+- Fully responsive design for desktop, tablet, and mobile devices
+- Elegant UI with modern styling and smooth interactions
+- Dashboard experience for content creators
+
+---
+
+# Backend Architecture
+
+## Django REST Framework Backend
+- RESTful API architecture
+- Secure CRUD operations for blogs, comments, and profiles
+- JWT-secured endpoints
+- Input validation and error handling
+- Media upload handling
+
+## Database & Cloud Services
+- PostgreSQL database hosted on Supabase
+- Cloud storage integration for user-uploaded media
+- Backup and recovery support for production data
+
+---
+
+# Technology Stack
+
+## Frontend
+- React
+- Axios
+- React Quill
+- CSS / Tailwind / Bootstrap
+
+## Backend
+- Django
+- Django REST Framework
+- Simple JWT Authentication
+
+## Database & Cloud
+- PostgreSQL
+- Supabase Storage
+
+## AI Integration
+- OpenAI API
+
+---
+
+# Application Structure
+
+## Main Pages
+- Home Page
+- Blog Detail Page
+- Create/Edit Blog Page
+- Category Browsing
+- User Dashboard
+- Profile Management
+- Authentication Pages
+
+## Navigation
+- Responsive Navbar
+- Search functionality
+- Sidebar navigation
+- Profile dropdown and account controls
+
+---
+
+# Design System
+
+## Theme Colors
+- Primary: Deep Wine Red `#6B0010`
+- Accent: Rose Gold `#B76E79`
+- Background: Dark Gradient
+- Typography: White and soft gray tones
+
+## UI Highlights
+- Elegant card-based layout
+- Interactive hover effects
+- Responsive blog grids
+- Modern typography and spacing
+
+---
+
+# Getting Started
+
+## Prerequisites
+- Node.js and npm
+- Python 3.10+
+- PostgreSQL
+
+---
+
+# Clone Repository
+
 ```bash
 git clone https://github.com/hamna-ali/BELLE.git
 cd BELLE
-

@@ -1,4 +1,4 @@
-# 🌸 BELLE – Community Fashion Blogging App for Women  
+# BELLE – Community Fashion Blogging App for Women  
 
 **BELLE** (meaning *beauty* in French) is a modern **community-driven fashion blogging platform** where women can create, share, and engage with blogs about **hair, makeup, skincare, and dressing styles**.  
 
@@ -85,7 +85,7 @@ The project provides a seamless blogging experience with a **Django REST API bac
 - **Cards/Fields**: Pearl White `#F5F5F5`  
 - **Typography**: White & Light Gray with Rose Gold highlights  
 
-✨ **Extra Seductive Styling**
+✨ **Extra Styling**
 - Hero carousel with dark overlay + wine-red headings  
 - Rose gold hover glows & borders  
 - Zoom-in blog thumbnails with subtle highlights  

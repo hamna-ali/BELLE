@@ -1,4 +1,4 @@
-# BELLE – AI-Powered Community Fashion Blogging Platform
+# BELLE – A Community Fashion Blogging Platform
 
 BELLE is a modern community-driven fashion blogging platform designed for women to create, share, and explore content related to skincare, makeup, haircare, and fashion styling.
 

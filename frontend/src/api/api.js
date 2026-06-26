@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: process.env.REACT_APP_API_URL ||
+    "http://ec2-54-226-131-137.compute-1.amazonaws.com",
 });
 
 // Attach token on each request

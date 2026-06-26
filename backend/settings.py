@@ -127,11 +127,11 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://your-frontend-domain.vercel.app",  # Replace with your actual frontend URL
-    "http://localhost:3000",  # Keep for development
+    "https://belle-taupe.vercel.app",
+    "http://localhost:3000", 
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # For testing, later restrict this
+CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOW_CREDENTIALS = True
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # should be this (default)
 SESSION_COOKIE_SECURE = False  # set False for local dev (True only with HTTPS)
